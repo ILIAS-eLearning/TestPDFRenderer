@@ -2,7 +2,7 @@
 
 require_once './Services/PDFGeneration/classes/class.ilPDFRendererPlugin.php';
 
-class ilDummyPDFRendererPlugin extends ilPDFRendererPlugin
+class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 {
 	/**
 	 * @var string
@@ -22,7 +22,7 @@ class ilDummyPDFRendererPlugin extends ilPDFRendererPlugin
 	/**
 	 * @var string
 	 */
-	const PNAME = 'DummyPDFRenderer';
+	const PNAME = 'TestPDFRenderer';
 
 	/**+
 	 * @var self
