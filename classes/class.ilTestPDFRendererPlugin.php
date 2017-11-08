@@ -17,7 +17,7 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 	/**
 	 * @var string
 	 */
-	const SLOT_ID = 'Renderer';
+	const SLOT_ID = 'renderer';
 
 	/**
 	 * @var string
@@ -66,7 +66,8 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 	 */
 	public function addConfigElementsToForm(\ilPropertyFormGUI $form, $service, $purpose)
 	{
-		$input = new ilTextInputGUI($this->lng->txt('number'), 'number');
+		global $lng;
+		$input = new ilTextInputGUI($lng->txt('pdfg_renderer_testpdfrenderer_number'), 'number');
 		$form->addItem($input);
 	}
 
@@ -133,5 +134,16 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 	public function generatePDF($service, $purpose, $config, $job)
 	{
 		return "Works.";
+	}
+
+	protected function beforeUninstall()
+	{
+		global $DIC;
+		$ilDB = $DIC['ilDB'];
+
+		$ilDB->manipulate("DELETE FROM pdfgen_renderer WHERE renderer = ".$ilDB->quote('TestPDF', "txt"));
+		$ilDB->manipulate("DELETE FROM pdfgen_renderer_avail WHERE renderer = ".$ilDB->quote('TestPDF', "txt"));
+		$ilDB->manipulate("DELETE FROM pdfgen_conf WHERE renderer = ".$ilDB->quote('TestPDF', "txt"));
+		return true;
 	}
 }
