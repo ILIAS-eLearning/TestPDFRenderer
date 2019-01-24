@@ -146,4 +146,12 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 		$ilDB->manipulate("DELETE FROM pdfgen_conf WHERE renderer = ".$ilDB->quote('TestPDF', "txt"));
 		return true;
 	}
+
+	public function prepareGenerationRequest($service, $purpose)
+	{
+		ilMathJax::getInstance()
+				 ->init(ilMathJax::PURPOSE_PDF)
+				 ->setRendering(ilMathJax::RENDER_SVG_AS_XML_EMBED);
+	}
+
 }
