@@ -32,7 +32,7 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 	/**
 	 * @return string
 	 */
-	public function getPluginName()
+    public function getPluginName() : string
 	{
 		return self::PNAME;
 	}
@@ -59,39 +59,41 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 
 	/**
 	 * from ilRendererConfig
-	 *
-	 * @param \ilPropertyFormGUI $form
-	 * @param string             $service
-	 * @param string             $purpose
+	 * @param ilPropertyFormGUI $form
+	 * @param string            $service
+	 * @param string            $purpose
 	 */
-	public function addConfigElementsToForm(\ilPropertyFormGUI $form, $service, $purpose)
+    public function addConfigElementsToForm(ilPropertyFormGUI $form, string $service, string $purpose) : void
 	{
 		global $lng;
 		$input = new ilTextInputGUI($lng->txt('pdfg_renderer_testpdfrenderer_number'), 'number');
 		$form->addItem($input);
 	}
 
-	/**
-	 * from ilRendererConfig
-	 *
-	 * @param \ilPropertyFormGUI $form
-	 * @param string             $service
-	 * @param string             $purpose
-	 * @param array              $config
-	 */
-	public function populateConfigElementsInForm(\ilPropertyFormGUI $form, $service, $purpose, $config)
+    /**
+     * @param ilPropertyFormGUI $form
+     * @param string            $service
+     * @param string            $purpose
+     * @param array             $config
+     * @return void
+     */
+    public function populateConfigElementsInForm(
+        ilPropertyFormGUI $form,
+        string $service,
+        string $purpose,
+        array $config
+    ) : void
 	{
 		$form->getItemByPostVar('number')->setValue($config['number']);
 	}
 
-	/**
-	 * from ilRendererConfig
-	 *
-	 * @param \ilPropertyFormGUI $form
-	 * @param string             $service
-	 * @param string             $purpose
-	 */
-	public function validateConfigInForm(\ilPropertyFormGUI $form, $service, $purpose)
+    /**
+     * @param ilPropertyFormGUI $form
+     * @param string            $service
+     * @param string            $purpose
+     * @return bool
+     */
+    public function validateConfigInForm(ilPropertyFormGUI $form, string $service, string $purpose) : bool
 	{
 		if(true)
 		{
@@ -99,44 +101,40 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 		}
 	}
 
-	/**
-	 * from ilRendererConfig
-	 *
-	 * @param \ilPropertyFormGUI $form
-	 * @param string             $service
-	 * @param string             $purpose
-	 */
-	public function getConfigFromForm(\ilPropertyFormGUI $form, $service, $purpose)
-	{
+    /**
+     * @param ilPropertyFormGUI $form
+     * @param string            $service
+     * @param string            $purpose
+     * @return array|mixed[]
+     */
+    public function getConfigFromForm(ilPropertyFormGUI $form, string $service, string $purpose) : array
+    {
 		return array('number' => $form->getItemByPostVar('number')->getValue());
 	}
 
-
-	/**
-	 * from ilRendererConfig
-	 *
-	 * @param string $service
-	 * @param string $purpose
-	 */
-	public function getDefaultConfig($service, $purpose)
+    /**
+     * @param string $service
+     * @param string $purpose
+     * @return int[]
+     */
+    public function getDefaultConfig(string $service, string $purpose)
 	{
 		return array('number' => 42);
 	}
 
-	/**
-	 * from ilPDFRenderer
-	 *
-	 * @param string              $service
-	 * @param string              $purpose
-	 * @param array               $config
-	 * @param \ilPDFGenerationJob $job
-	 */
-	public function generatePDF($service, $purpose, $config, $job)
+    /**
+     * @param string             $service
+     * @param string             $purpose
+     * @param array              $config
+     * @param ilPDFGenerationJob $job
+     * @return void
+     */
+    public function generatePDF(string $service, string $purpose, array $config, ilPDFGenerationJob $job) : void
 	{
-		return "Works.";
+
 	}
 
-	protected function beforeUninstall()
+    protected function beforeUninstall() : bool
 	{
 		global $DIC;
 		$ilDB = $DIC['ilDB'];
@@ -147,7 +145,7 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 		return true;
 	}
 
-	public function prepareGenerationRequest($service, $purpose)
+    public function prepareGenerationRequest(string $service, string $purpose) : void
 	{
 		ilMathJax::getInstance()
 				 ->init(ilMathJax::PURPOSE_PDF)

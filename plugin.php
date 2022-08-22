@@ -10,8 +10,8 @@
  */
 
 $id = "testpdfrenderer";
-$version = "1.0.0";
-$ilias_min_version = "5.4.0";
-$ilias_max_version = "6.0.999";
+$version = "1.2.0";
+$ilias_min_version = "8.0";
+$ilias_max_version = "8.999";
 $responsible = "Maximilian Becker";
 $responsible_mail = "mbecker@databay.de";
