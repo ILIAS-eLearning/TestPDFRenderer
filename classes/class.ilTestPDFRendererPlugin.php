@@ -37,6 +37,12 @@ class ilTestPDFRendererPlugin extends ilPDFRendererPlugin
 		return self::PNAME;
 	}
 
+    public function __construct()
+    {
+        global $DIC;
+        parent::__construct($DIC->database(), $DIC["component.repository"], 'testpdfrenderer');
+    }
+
 	/**
 	 * @return self
 	 */
